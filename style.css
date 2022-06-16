@@ -1,0 +1,15 @@
+#page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 95vh;
+}
+
+#container {
+    background-color: maroon;
+    border-radius: 10px;
+    border: black 2px solid;
+    height: 80vh;
+    width: 80vh;
+}
