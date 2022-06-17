@@ -1,9 +1,15 @@
 let canvas = document.getElementById('container');
 
 function buildCanvas (size) {
-    pixels = size*size;
-    for (i=0, i <= pixels, i++) {
-        canvas.innerHTML += `<div class="pixel${i}" id="p${i}">${i}</div>`;
-        document.getElementById(`p${i}`).style.gridColumn = 1;
+    canvas.style.gridTemplateColumns = `repeat(${size}, 1fr)`
+    canvas.style.gridTemplateRows = `repeat(${size}, 1fr)`
+    for (row=1; row <= size; row++) {
+        for (column=1; column <= size; column++) {
+            let pixel = document.createElement('div');
+            pixel.className = 'pixel';
+            canvas.appendChild(pixel);
+        }
     }
 }
+
+buildCanvas(10);
