@@ -33,31 +33,32 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    height: 100px;
 }
 
 #drawColorBox {
     background-color: black;
-    width: 100px;
+    width: 80px;
     height: 40px;
+    margin-right: 10px;
 }
 
 #bgColorBox {
     background-color: white;
-    width: 100px;
+    width: 80px;
     height: 40px;
+    margin-right: 10px;
 }
 
 .drawColor {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     min-width: 100%;
 }
 
 .bgColor {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     min-width: 100%;
 }
 
