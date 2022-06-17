@@ -1,4 +1,4 @@
-let canvas = document.getElementById('container');
+let canvas = document.getElementById('canvas');
 
 function buildCanvas (size) {
     canvas.style.gridTemplateColumns = `repeat(${size}, 1fr)`
