@@ -1,27 +1,78 @@
+* {
+	padding: 0;
+	margin: 0;
+	}
+
 #page {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100vw;
-    height: 95vh;
+    height: 100vh;
+    background-color: gray;
 }
 
 #container {
-    background-color: maroon;
-    border-radius: 10px;
-    border: black 2px solid;
-    height: 80vh;
-    width: 80vh;
+    min-height: 600px;
+    max-height: 70%;
     display: flex;
+    justify-content: space-between;
 }
 
 #menu {
-    background-color: gray;
-    width: 20vh;
+    padding: 20px;
+    background-color: darkgray;
+    border-radius: 10px;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+}
+
+.colorMenu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#drawColorBox {
+    background-color: black;
+    width: 100px;
+    height: 40px;
+}
+
+#bgColorBox {
+    background-color: white;
+    width: 100px;
+    height: 40px;
+}
+
+.drawColor {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 100%;
+}
+
+.bgColor {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 100%;
+}
+
+#canvasBox {
+    min-height: 600px;
+    min-width: 600px;
+    background-color: darkgray;
+    border-radius: 10px;
+    width: 70vh;
+    height: 70vh;
+    display: flex;
 }
 
 #canvas {
-    padding: 5px;
+    padding: 20px;
     display: grid;
     flex: 1;
 }
