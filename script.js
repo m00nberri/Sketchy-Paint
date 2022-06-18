@@ -3,8 +3,23 @@ let slider = document.getElementById('sizeInput');
 let sizeText = document.getElementById('sizeText');
 slider.value = 25;
 sizeText.textContent = `Size: ${slider.value}x${slider.value}`;
-
 buildCanvas(25);
+
+let drawColor = document.getElementById('drawColorBox');
+let bgColor = document.getElementById('bgColorBox');
+drawColor.value = '#000000';
+bgColor.value = '#ffffff';
+
+drawColor.oninput = () => {
+
+}
+
+function changeBg(color) {
+    let bgPixels = document.getElementsByClassName('bgPixel');
+    (Array.from(bgPixels)).forEach(element => {
+        element.style.backgroundColor = color;
+    });
+}
 
 function removePixels() {
     let pixel = canvas.firstElementChild;
@@ -21,7 +36,7 @@ function buildCanvas (size) {
     for (row=1; row <= size; row++) {
         for (column=1; column <= size; column++) {
             let pixel = document.createElement('div');
-            pixel.className = 'bgPixel';
+            pixel.className = 'bgPixel pixelBorder';
             canvas.appendChild(pixel);
         }
     }

@@ -7,6 +7,7 @@
     <title>Sketchy Paint</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
+    <script src="jscolor.js"></script>
 </head>
 <body>
     <div id="page">
@@ -14,11 +15,11 @@
             <div id="menu">
                 <div class="colorMenu">
                     <div class="drawColor">
-                        <div id="drawColorBox"></div>
+                        <input type="color" id="drawColorBox"></input>
                         <span>Draw Color</span>
                     </div>
                     <div class="bgColor">
-                        <div id="bgColorBox"></div>
+                        <input type="color" id="bgColorBox" oninput="changeBg(this.value)"></input>
                         <span>Background<br>Colour</span>
                     </div>
                     <button id="rainowButton">Rainbow!</button>
@@ -28,7 +29,7 @@
                 <button id="eraserButton">Eraser</button>
                 <button id="gridButton">Show Grid</button>
                 <button id="clearButton">Clear</button>
-                <input type="range" min="1" max="50" value="25" class="slider" id="sizeInput" onchange="buildCanvas(this.value)">
+                <input type="range" min="1" max="50" value="25" class="slider" id="sizeInput" onchange="buildCanvas(this.value); changeBg(bgColorBox.value)">
                 <span id="sizeText">Size: 25x25</span>
             </div>
 
