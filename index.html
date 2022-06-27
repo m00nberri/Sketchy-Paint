@@ -15,11 +15,11 @@
             <div id="menu">
                 <div class="colorMenu">
                     <div class="drawColor">
-                        <input type="color" id="drawColorBox"></input>
+                        <input type="color" id="drawColorBox" oninput="changeDraw(this.value)"></input>
                         <span>Draw Color</span>
                     </div>
                     <div class="bgColor">
-                        <input type="color" id="bgColorBox" oninput="changeBg(this.value)"></input>
+                        <input type="color" id="bgColorBox" oninput="changeBg(this.value); setContrast(this.value)"></input>
                         <span>Background<br>Colour</span>
                     </div>
                     <button id="rainowButton">Rainbow!</button>

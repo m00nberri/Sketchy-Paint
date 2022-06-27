@@ -83,7 +83,7 @@
 }
 
 .pixelBorder {
-    border: 2px solid black;
+    border: black solid 1px;
 }
 
 .bgPixel {
@@ -91,7 +91,7 @@
 }
 
 .drawPixel {
-
+    
 }
 
 span {
