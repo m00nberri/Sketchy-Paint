@@ -22,7 +22,7 @@
                         <input type="color" id="bgColorBox" oninput="changeBg(this.value); setContrast(this.value)"></input>
                         <span>Background<br>Colour</span>
                     </div>
-                    <button id="rainowButton">Rainbow!</button>
+                    <button id="rainbowButton">Rainbow!</button>
                 </div>
                 <button id="drawButton">Draw</button>
                 <button id="fillButton">Fill</button>
@@ -33,7 +33,7 @@
                 <span id="sizeText">Size: 25x25</span>
             </div>
 
-            <div id="canvasBox">
+            <div id="canvasBox" ondragstart="return false;" ondrop="return false;">
                 <div id="canvas"></div>
             </div>
         </div>
