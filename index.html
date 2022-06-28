@@ -6,11 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sketchy Paint</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mansalva&family=Righteous&display=swap" rel="stylesheet"> 
     <script src="script.js" defer></script>
     <script src="jscolor.js"></script>
 </head>
 <body>
     <div id="page">
+        <span id="title">Sketchy Paint</span>
         <div id="container">
             <div id="menu">
                 <div class="colorMenu">
@@ -37,6 +42,10 @@
             <div id="canvasBox" ondragstart="return false;" ondrop="return false;">
                 <div id="canvas"></div>
             </div>
+        </div>
+        <div id="footer">
+            <span>Created by&nbsp;</span>
+            <a href="https://github.com/m00nberri">Barry</a>
         </div>
     </div>
 </body>
