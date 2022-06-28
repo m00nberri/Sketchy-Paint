@@ -1,3 +1,4 @@
+let pickerButton = document.getElementById('pickerButton');
 let rainButton = document.getElementById('rainbowButton')
 let drawButton = document.getElementById('drawButton');
 let fillButton = document.getElementById('fillButton');
@@ -29,10 +30,6 @@ let drawColor = document.getElementById('drawColorBox');
 let bgColor = document.getElementById('bgColorBox');
 drawColor.value = '#000000';
 bgColor.value = '#ffffff';
-
-drawColor.oninput = () => {
-
-}
 
 function changeDraw(color) {
     drawColor.value = color;
@@ -66,9 +63,6 @@ function removePixels() {
     let pixel = canvas.firstElementChild;
     while (pixel) {
         canvas.removeChild(pixel);
-        pixel.removeEventListener('click', function onClick(event) {
-            draw(event);
-        });
         pixel = canvas.firstElementChild;
     }
 }
@@ -84,15 +78,24 @@ function buildCanvas (size) {
             let pixel = document.createElement('div');
             pixel.className = 'bgPixel pixelBorder';
             pixel.addEventListener('mousedown', function onClick(event) {
-                draw(event);
-
+                if (drawMode !== 'picker') {
+                    draw(event);
+                }
+                else {
+                    pickColor(event);
+                }
             });
             pixel.addEventListener('mouseover', function onClick(event) {
-                if (mouseStatus === 'up') {
-                    null;
+                if (drawMode !== 'picker') {
+                    if (mouseStatus === 'up') {
+                        null;
+                    }
+                    else if (mouseStatus === 'down') {
+                        draw(event);
+                    }
                 }
-                else if (mouseStatus === 'down') {
-                    draw(event);
+                else {
+                    null;
                 }
             });
             pixel.id = `${column},${row}`;
@@ -118,6 +121,11 @@ function hex2rgb(hex) {
     return output;
 }
 
+const rgb2hex = (rgb) => `#${rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/).slice(1).map(n => parseInt(n, 10).toString(16).padStart(2, '0')).join('')}`
+
+pickerButton.addEventListener('click', () => {
+    pickerClick();
+});
 rainButton.addEventListener('click', () => {
     rainClick();
 });
@@ -130,6 +138,25 @@ fillButton.addEventListener('click', () => {
 eraserButton.addEventListener('click', () => {
     eraserClick();
 });
+clearButton.addEventListener('click', () => {
+    clearClick();
+});
+
+function pickerClick() {
+    if (drawMode === 'picker') {
+        drawMode = 'draw';
+        pickerButton.classList.remove('clickedButton')
+        drawButton.classList.add('clickedButton');
+    }
+    else {
+        drawMode = 'picker';
+        pickerButton.classList.add('clickedButton')
+        rainButton.classList.remove('clickedButton')
+        drawButton.classList.remove('clickedButton');
+        fillButton.classList.remove('clickedButton');
+        eraserButton.classList.remove('clickedButton');
+    }
+}
 
 function rainClick() {
     if (drawMode === 'rainbow') {
@@ -138,6 +165,7 @@ function rainClick() {
     }
     else {
         drawMode = 'rainbow';
+        pickerButton.classList.remove('clickedButton')
         rainButton.classList.add('clickedButton')
         drawButton.classList.add('clickedButton');
         fillButton.classList.remove('clickedButton');
@@ -151,6 +179,7 @@ function drawClick() {
     }
     else {
         drawMode = 'draw';
+        pickerButton.classList.remove('clickedButton')
         rainButton.classList.remove('clickedButton')
         drawButton.classList.add('clickedButton');
         fillButton.classList.remove('clickedButton');
@@ -164,6 +193,7 @@ function fillClick() {
     }
     else {
         drawMode = 'fill';
+        pickerButton.classList.remove('clickedButton')
         rainButton.classList.remove('clickedButton')
         drawButton.classList.remove('clickedButton');
         fillButton.classList.add('clickedButton');
@@ -177,6 +207,7 @@ function eraserClick() {
     }
     else {
         drawMode = 'eraser';
+        pickerButton.classList.remove('clickedButton')
         rainButton.classList.remove('clickedButton')
         drawButton.classList.remove('clickedButton');
         fillButton.classList.remove('clickedButton');
@@ -210,6 +241,16 @@ function gridClick() {
             element.style.borderStyle = 'solid';
         });
     }
+}
+
+function clearClick() {
+    buildCanvas(slider.value);
+}
+
+function pickColor(event) {
+    console.log(window.getComputedStyle(event.target).getPropertyValue('background-color'))
+    drawColor.value = rgb2hex(window.getComputedStyle(event.target).getPropertyValue('background-color'));
+    pickerClick();
 }
 
 //Rainbow code modified from https://krazydad.com/tutorials/makecolors.php
