@@ -243,7 +243,7 @@ function draw(event) {
         event.target.style.backgroundColor = bgColor.value;
     }
     else if (drawMode === 'fill') {
-        fillMarker(event); 
+        fillMarker(event);
     }
 }
 
@@ -259,72 +259,100 @@ function fillMarker(event) {
     let checkBook = {};
     let foundLeft = 0;
     let foundRight = 0;
-    
-    let topPixel = checkUp();
-    topPixel.style.border = 'solid gold 5px'
 
-    let bottomPixel = fillDown();
-    bottomPixel.style.border = 'solid red 5px'
-
-    console.log(checkBook);
- 
-    function checkUp() {
-        toCheck -= 1;
+    while (toCheck >= 1) {
+        if (toCheck >100) {
+            return;
+        }
+        checkUp();
+        fillDown();
+        fillDraw();
+        console.log('tocheck is:' + toCheck);
+        console.log('coords:' + checkBook[`${toCheck}`-1].split(','));
+        coords = checkBook[`${toCheck}`-1].split(',');
         xcoord = coords[0];
         ycoord = coords[1];
+        console.log('coords[1]' + coords[1])
+    }
+
+    function checkUp() {
+        toCheck -= 1;
         let targetPixel = document.getElementById(`${xcoord},${ycoord}`);
         while (window.getComputedStyle(targetPixel).getPropertyValue('background-color') === baseColor) {
             ycoord -= 1;
             targetPixel = document.getElementById(`${xcoord},${ycoord}`);
             if (ycoord === 1) {
-                return targetPixel;
+                return;
+            }
+            else if (ycoord < 1) {
+                ycoord = parseInt(ycoord) + 1;
+                return;
             }
             else if (window.getComputedStyle(targetPixel).getPropertyValue('background-color') !== baseColor) {
                 ycoord = parseInt(ycoord) + 1
                 targetPixel = document.getElementById(`${xcoord},${ycoord}`);
-                return targetPixel;
+                return;
             }
         }
     }
 
     function fillDown() {
+        foundLeft = 0;
+        foundRight = 0;
         let targetPixel = document.getElementById(`${xcoord},${ycoord}`);
-        targetPixel.classList.add('fillMark');
+        console.log('fillDown coords:' + xcoord + ' , ' + ycoord)
         while (window.getComputedStyle(targetPixel).getPropertyValue('background-color') === baseColor) {
-            ycoord = parseInt(ycoord) + 1;
+            targetPixel.classList.add('fillMark');
             if (foundLeft === 0) {
                 checkLeft();
             }
             if (foundRight === 0) {
                 checkRight();
             }
+            ycoord = parseInt(ycoord) + 1;
             targetPixel = document.getElementById(`${xcoord},${ycoord}`);
-            targetPixel.classList.add('fillMark');
             if (ycoord === (parseInt(slider.value))) {
-                return targetPixel;
+                targetPixel.classList.add('fillMark');
+                if (foundLeft === 0) {
+                    checkLeft();
+                }
+                if (foundRight === 0) {
+                    checkRight();
+                }
+                return;
             }
             else if (window.getComputedStyle(targetPixel).getPropertyValue('background-color') !== baseColor) {
                 ycoord -= 1;
                 targetPixel = document.getElementById(`${xcoord},${ycoord}`);
-                return targetPixel;
+                return;
+            }
+            else {
+                targetPixel.classList.add('fillMark');
+                if (foundLeft === 0) {
+                    checkLeft();
+                }
+                if (foundRight === 0) {
+                    checkRight();
+                }
             }
         }
     }
     
     function checkLeft() {
-        xcoord -= 1;
+        xcoord = parseInt(xcoord) - 1;
         let targetPixel = document.getElementById(`${xcoord},${ycoord}`);
-        if (window.getComputedStyle(targetPixel).getPropertyValue('background-color') === baseColor) {
+        if (xcoord === 0) {
+            xcoord = parseInt(xcoord) + 1;
+            targetPixel = document.getElementById(`${xcoord},${ycoord}`);
+            return;
+        }
+        else if (window.getComputedStyle(targetPixel).getPropertyValue('background-color') === baseColor) {
             checkBook[toCheck] = `${xcoord},${ycoord}`;
             xcoord = parseInt(xcoord) + 1;
             targetPixel = document.getElementById(`${xcoord},${ycoord}`);
             toCheck += 1;
+            console.log('add to tocheck from left, its now;' + toCheck);
             foundLeft = 1;
-            return;
-        }
-        else if (xcoord === 0) {
-            xcoord = parseInt(xcoord) + 1;
-            targetPixel = document.getElementById(`${xcoord},${ycoord}`);
             return;
         }
         else {
@@ -337,17 +365,18 @@ function fillMarker(event) {
     function checkRight() {
         xcoord = parseInt(xcoord) + 1;
         let targetPixel = document.getElementById(`${xcoord},${ycoord}`);
-        if (window.getComputedStyle(targetPixel).getPropertyValue('background-color') === baseColor) {
+        if (xcoord === parseInt(slider.value)+1) {
+            xcoord -= 1;
+            targetPixel = document.getElementById(`${xcoord},${ycoord}`);
+            return;
+        }
+        else if (window.getComputedStyle(targetPixel).getPropertyValue('background-color') === baseColor) {
             checkBook[toCheck] = `${xcoord},${ycoord}`;
             xcoord -= 1;
             targetPixel = document.getElementById(`${xcoord},${ycoord}`);
             toCheck += 1;
+            console.log('add to tocheck from right, its now;' + toCheck);
             foundRight = 1;
-            return;
-        }
-        else if (xcoord === 0) {
-            xcoord -= 1;
-            targetPixel = document.getElementById(`${xcoord},${ycoord}`);
             return;
         }
         else {
