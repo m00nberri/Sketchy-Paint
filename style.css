@@ -121,16 +121,17 @@ button {
     height: 40px;
 }
 
-#drawButton, #fillButton, #gridButton {
+#drawButton, #fillButton, #gridButton, #pickerButton {
     margin-bottom: 10px;
 }
 
-#eraserButton, #clearButton {
+#eraserButton {
     margin-bottom: 40px;
 }
 
 #sizeText {
     text-align: center;
+    margin-bottom: 40px;
 }
 
 #sizeInput {

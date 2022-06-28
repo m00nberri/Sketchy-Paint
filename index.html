@@ -22,15 +22,16 @@
                         <input type="color" id="bgColorBox" oninput="changeBg(this.value); setContrast(this.value)"></input>
                         <span>Background<br>Colour</span>
                     </div>
+                    <button id="pickerButton">Color Picker</button>
                     <button id="rainbowButton">Rainbow!</button>
                 </div>
                 <button id="drawButton">Draw</button>
                 <button id="fillButton">Fill</button>
                 <button id="eraserButton">Eraser</button>
                 <button id="gridButton">Show Grid</button>
-                <button id="clearButton">Clear</button>
                 <input type="range" min="1" max="50" value="25" class="slider" id="sizeInput" onchange="buildCanvas(this.value); changeBg(bgColorBox.value)">
                 <span id="sizeText">Size: 25x25</span>
+                <button id="clearButton">Clear</button>
             </div>
 
             <div id="canvasBox" ondragstart="return false;" ondrop="return false;">
